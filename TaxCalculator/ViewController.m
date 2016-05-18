@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property double sfTax, chiTax,nyTax;
 
 @end
 
@@ -16,12 +17,46 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    _sfTax  = .0875;
+    _chiTax = .1025;
+    _nyTax  = 0.08875;
+    
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+
+- (IBAction)onCalculateButtonTapped:(id)sender {
+    double price, result;
+    
+    
+    price =[self.priceTextField.text doubleValue];
+    
+    switch (self.segmentedControl.selectedSegmentIndex ) {
+        
+        case 0:
+             result = price * _sfTax;
+            _resultLabel.text = [NSString stringWithFormat:@"$%.02f", result];
+            break;
+            
+        case 1:
+            result = price * _chiTax;
+            _resultLabel.text = [NSString stringWithFormat:@"$%.02f", result];
+            break;
+            
+        case 2:
+            result = price * _nyTax;
+            _resultLabel.text = [NSString stringWithFormat:@"$%.02f", result];
+            break;
+            
+        default:
+            break;
+    }
+    
+    
 }
 
 @end
